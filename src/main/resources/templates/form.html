@@ -1,10 +1,75 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>CC Verification</title>
+    <!-- Bootstrap import -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 </head>
 <body>
+    <div class="container">
+        <div class="col-sm-8 col-md-6">
+            <div class="card m-5">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <h5>
+                                Credit Card Payment
+                            </h5>
+                        </div>
+                        <div class="col-md-5 text-right" style="margin-top: -5px;">
+                            <img src="https://img.icons8.com/color/36/000000/visa.png">
+                            <img src="https://img.icons8.com/color/36/000000/mastercard.png">
+                            <img src="https://img.icons8.com/color/36/000000/amex.png">
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form action="/" th:action="@{/}" th:object="${creditCard}" method="post" name="ccCheck">
+                        <div class="row g-3 m-3">
+                            <div class="col">
+                                <label for="creditCardNumber" class="form-label">Credit Card Number</label>
+                                <input type="text" class="form-control" id="creditCardNumber" aria-describedby="creditCardNumberHelp" th:field="*{cardNumber}">
+                                <p th:if="${#fields.hasErrors('cardNumber')}" th:errors="*{cardNumber}" class="alert alert-danger"></p>
+                            </div>
+                        </div>
+                        <div class="row g-3 m-3">
+                            <div class="col-md-6">
+                                <label for="ccExp" class="form-label">Expiration</label>
+                                <input type="tel" class="form-control" id="ccExp" name="ccExpName" placeholder="&bull;&bull; / &bull;&bull;" aria-describedby="ccExpHelp" th:field="*{expiryDateCardText}">
+                                <p th:if="${#fields.hasErrors('expiryDateCardText')}" th:errors="*{expiryDateCardText}" class="alert alert-danger"></p>
 
+                            </div>
+                            <div class="col-md-6">
+                                <label for="ccCVV" class="form-label">CVV</label>
+                                <input type="tel" class="form-control" id="ccCVV" placeholder="&bull;&bull;&bull;&bull;" aria-describedby="ccCVVHelp" th:field="*{cvv}">
+                                <p th:if="${#fields.hasErrors('cvv')}" th:errors="*{cvv}" class="alert alert-danger"></p>
+                                <p th:if="${#fields.hasErrors('global')}" th:errors="*{global}" class="alert alert-danger"></p>
+                            </div>
+                        </div>
+
+                        <div class="row g-3 m-3">
+                            <div class="col">
+                                <label for="firstName" class="form-label">First Name</label>
+                                <input type="text" class="form-control" id="firstName" aria-describedby="firstNameHelp" th:field="*{firstNameCard}">
+                                <p th:if="${#fields.hasErrors('firstNameCard')}" th:errors="*{firstNameCard}" class="alert alert-danger"></p>
+                            </div>
+                            <div class="col">
+                                <label for="lastName" class="form-label">Last Name</label>
+                                <input type="text" class="form-control" id="lastName" aria-describedby="lastNameHelp" th:field="*{lastNameCard}">
+                                <p th:if="${#fields.hasErrors('lastNameCard')}" th:errors="*{lastNameCard}" class="alert alert-danger"></p>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <h2 th:text="${message}"></h2>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
